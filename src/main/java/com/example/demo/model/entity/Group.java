@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 @Entity
 @Data
 @Accessors(chain = true)
-@Table(name = "`groups`")
+@Table(name = "groups")
 public class Group {
 
     @Id

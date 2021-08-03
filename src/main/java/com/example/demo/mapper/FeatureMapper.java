@@ -2,6 +2,8 @@ package com.example.demo.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.example.demo.model.entity.Feature;
 import com.example.demo.model.response.FeatureResponse;
@@ -22,14 +24,14 @@ public class FeatureMapper {
     }
 
 
-    //thử làm cách khác :)))
     public List<FeatureResponse> map(List<Feature> features){
-        var featureResponses = new ArrayList<FeatureResponse>();
+        return features.stream().map(this::map).collect(Collectors.toList());
+    }
 
-        for(Feature f : features){
-            featureResponses.add(map(f));
-        }
-
-        return featureResponses;
+    public List<FeatureResponse> map(Set<Integer> featureIdSet, List<Feature> featureList) {
+        return featureList.stream()
+                .filter(feature -> featureIdSet.contains(feature.getId()))
+                .map(this::map)
+                .collect(Collectors.toList());
     }
 }
